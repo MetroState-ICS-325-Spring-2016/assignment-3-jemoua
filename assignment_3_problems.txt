@@ -10,15 +10,54 @@ Answer:
 SELECT COUNT(*) FROM `customers` WHERE `creditLimit` > 20000;
 97
 
-1. How many customers are located in Germany? (Should return only 1 field with the count.)
+/*
+Je Moua
+Assignment 3
+Problems 1 - 5
+*/
 
-2. What is the contact first name and contact last name for every contact that has a first name that starts with D?
+/*1. How many customers are located in Germany? (Should return only 1 field with the count.)*/
+SELECT count(*) FROM customers where country = 'Germany';
+/*RESULT
+13
+*/
 
-3. What are the customer names for every company that Leslie Tompson is a sales rep for?
+/*2. What is the contact first name and contact last name for every contact that has a first name that starts with D?*/
+select contactFirstName, contactLastName from customers where contactFirstName like 'D%';
+/*RESULT
+Diego 	Freyre
+Dean	Cassidy
+Daniel	Da Silva
+Daniel 	Tonini
+Dorothy	Young
+Dominique	Perrier
+Dan	Lewis
+*/
 
-4. What was the amount for the last payment that Boards & Toys Co. made? (Should return only 1 field with the amount.)
+/*3. What are the customer names for every company that Leslie Tompson is a sales rep for?*/
+select c.customerName from customers c join employees e on c.salesRepEmployeeNumber = e.employeeNumber 
+where e.firstName = 'Leslie' and e.lastName = 'Thompson';
+/*RESULT
+Signal Gift Stores
+Toys4GrownUps.com
+Boards & Toys Co.
+Collectable Mini Designs Co.
+Men 'R' US Retailers, Ltd.
+West Coast Collectables Co.
+*/
 
-5. How many payments have been made that are more than 20000? (Should return 1 field with the count.)
+/*4. What was the amount for the last payment that Boards & Toys Co. made? (Should return only 1 field with the amount.)*/
+select p.amount from payments p join customers c on p.customerNumber = c.customerNumber
+where c.customerName = 'Boards & Toys Co.' order by p.paymentDate desc limit 1;
+/*RESULT
+3452.75
+*/
+
+/*5. How many payments have been made that are more than 20000? (Should return 1 field with the count.)*/
+select count(*) from payments where amount > 20000;
+/*RESULT
+195
+*/
 
 6. Write a PHP program that prints the following information to the terminal:
 The customer name, country, and sales rep name on one line per customer.
